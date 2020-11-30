@@ -7,7 +7,7 @@ import {
 
 const ForecastChart = ({ data }) => {
     return (
-        <ResponsiveContainer height={250} width={"95%"}        >
+        <ResponsiveContainer height={250} width={"95%"}>
             <LineChart
                 margin={{ top: 20, bottom: 20, left: 5, right: 5 }}
                 data={data}>
@@ -27,7 +27,8 @@ ForecastChart.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
         dayHour: PropTypes.string.isRequired,
         min: PropTypes.number.isRequired,
-        max: PropTypes.number.isRequired
+        max: PropTypes.number.isRequired,
+        hasTemps: PropTypes.bool.isRequired
     })).isRequired
 }
 

@@ -7,14 +7,15 @@ export default {
     componet: CityList
 }
 
+
 const cities =
     [
-        { city: "Buenos Aires", country: "Argentina" },
-        // { city: "Bariloche", country: "Argentina" },
-        // { city: "Lima", country: "Perú" },
-        // { city: "Madrid", country: "España" },
-        { city: "Miami", country: "EEUU" },
-        { city: "París", country: "Francia" }
+        { city: "Buenos Aires", country: "Argentina", countryCode: "AR" },
+        // { city: "Bariloche", country: "Argentina", countryCode: "AR" },
+        // { city: "Lima", country: "Perú", countryCode: "PE" },
+        // { city: "Madrid", country: "España", countryCode: "ES" },
+        { city: "Miami", country: "EEUU", countryCode: "US" },
+        { city: "París", country: "Francia", countryCode: "FR" }
     ]
 
 export const CityListExample = () => {
