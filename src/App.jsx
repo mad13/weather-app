@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CityPage from './pages/CityPage'
 import WelcomePage from './pages/WelcomePage'
 import MainPage from './pages/MainPage'
@@ -25,7 +24,8 @@ const App = props => {
                         <Route path="/main">
                             <MainPage />
                         </Route>
-                        <Route path="/city">
+                        {/* <Route path="/city"> */}
+                        <Route path="/city/:countryCode/:city">
                             <CityPage />
                         </Route>
                         <Route>
