@@ -26,14 +26,11 @@ const CityPage = ({ props }) => {
     // const wind = weather && weather.wind
     /* petiodiones excetivas al aserver */
 
-
     const country = "Argentina"
     const state = "clear"
     const temperature = 77
     const humidity = 80
     const wind = 70
-
-
 
     return (
         <AppFrame>
