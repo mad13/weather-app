@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import 'moment/locale/es'
 import AppFrame from './../components/AppFrame'
 import CityInfo from './../components/CityInfo';
@@ -33,6 +34,11 @@ const CityPage = ({ props }) => {
                 <Grid container item xs={12} justify="center">
                     <Weather state={state} temperature={temperature} />
                     <WeatherDetails humidity={humidity} wind={wind} />
+                </Grid>
+                <Grid item >
+                    {
+                        !chartData && !foreCastItemList && <LinearProgress />
+                    }
                 </Grid>
                 <Grid item >
                     {chartData && <ForecastChart data={chartData} />}
