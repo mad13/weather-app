@@ -39,7 +39,7 @@ const useCityPage = () => {
 
     }, [city, countryCode])
 
-    return { city, chartData, foreCastItemList }
+    return { city, countryCode, chartData, foreCastItemList }
 }
 
 export default useCityPage

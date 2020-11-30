@@ -9,15 +9,31 @@ import WeatherDetails from './../components/WeatherDetails';
 import Forecast from './../components/Forecast';
 import ForecastChart from './../components/ForecastChart';
 import useCityPage from '../hooks/useCityPage'
+import useCityList from '../hooks/useCityList'
+import { getCityCode } from '../utils/utils'
+import { getCountryNameByCountryCode } from '../utils/servicesCities'
 
 const CityPage = ({ props }) => {
-    const { city, chartData, foreCastItemList } = useCityPage()
+    const { city, countryCode, chartData, foreCastItemList } = useCityPage()
+
+    /* petiodiones excetivas al aserver */
+    // const { allWeather } = useCityList([{ city, countryCode }])
+    // const weather = allWeather[getCityCode(city, countryCode)]
+    // const country = countryCode && getCountryNameByCountryCode(countryCode)
+    // const state = weather && weather.state
+    // const temperature = weather && weather.temperature
+    // const humidity = weather && weather.humidity
+    // const wind = weather && weather.wind
+    /* petiodiones excetivas al aserver */
+
 
     const country = "Argentina"
-    const state = "clouds"
-    const temperature = 20
+    const state = "clear"
+    const temperature = 77
     const humidity = 80
     const wind = 70
+
+
 
     return (
         <AppFrame>
@@ -33,7 +49,13 @@ const CityPage = ({ props }) => {
                 </Grid>
                 <Grid container item xs={12} justify="center">
                     <Weather state={state} temperature={temperature} />
-                    <WeatherDetails humidity={humidity} wind={wind} />
+
+                    {
+                        humidity && wind &&
+                        <WeatherDetails
+                            humidity={humidity}
+                            wind={wind} />
+                    }
                 </Grid>
                 <Grid item >
                     {
