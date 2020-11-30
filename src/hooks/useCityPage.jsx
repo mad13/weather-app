@@ -5,7 +5,7 @@ import 'moment/locale/es'
 import { useParams } from 'react-router-dom';
 import { getForecastUrl } from './../utils/urls'
 import { toCelcius } from './../utils/utils'
-// import getChartData from './../utils/transform/getChartData'
+import getChartData from './../utils/transform/getChartData'
 
 const useCityPage = () => {
     const [chartData, setChartData] = useState(null)
@@ -23,30 +23,7 @@ const useCityPage = () => {
             try {
 
                 const { data } = await axios.get(url)
-                // const dataAux = getChartData(data)
-                // setChartData(dataAux)
-
-                const daysAHead = [1, 2, 3, 4, 5]
-                const days = daysAHead.map(d => moment().add(d, 'd'))
-                const dataAux = days.map(day => {
-
-                    const tempObjArray = data.list.filter(item => {
-                        const dayOfYear = moment.unix(item.dt).dayOfYear()
-                        return dayOfYear === day.dayOfYear()
-                    })
-
-                    console.log("day.dayOfYear()", day.dayOfYear())
-                    console.log("tempObjArray", tempObjArray)
-
-                    const temps = tempObjArray.map(item => item.main.temp)
-                    // "dayHour", "min", "max"
-                    return ({
-                        dayHour: day.format('ddd'),
-                        min: Number(toCelcius(Math.min(...temps))),
-                        max: Number(toCelcius(Math.max(...temps))),
-                        hasTemps: (temps.length > 0) ? true : false
-                    })
-                }).filter(item => item.hasTemps)
+                const dataAux = getChartData(data)
                 setChartData(dataAux)
 
                 // , { weekDay: "Sábado", hour: 15, state: "clouds", temperature: 28 }
