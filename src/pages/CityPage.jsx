@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo } from 'react'
 import Grid from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import 'moment/locale/es'
@@ -17,20 +17,29 @@ const CityPage = ({ props }) => {
     const { city, countryCode, chartData, foreCastItemList } = useCityPage()
 
     /* petiodiones excetivas al aserver */
-    // const { allWeather } = useCityList([{ city, countryCode }])
-    // const weather = allWeather[getCityCode(city, countryCode)]
-    // const country = countryCode && getCountryNameByCountryCode(countryCode)
-    // const state = weather && weather.state
-    // const temperature = weather && weather.temperature
-    // const humidity = weather && weather.humidity
-    // const wind = weather && weather.wind
+
+    // useMemo, es un factory, la segunda parte son las dependencias
+    // lo guarda en memomria, en cache
+    const cities = useMemo(() =>
+        ([{ city, countryCode }]), [city, countryCode]
+    )
+
+    const { allWeather } = useCityList(cities)
+
+    const weather = allWeather[getCityCode(city, countryCode)]
+
+    const country = countryCode && getCountryNameByCountryCode(countryCode)
+    const state = weather && weather.state
+    const temperature = weather && weather.temperature
+    const humidity = weather && weather.humidity
+    const wind = weather && weather.wind
     /* petiodiones excetivas al aserver */
 
-    const country = "Argentina"
-    const state = "clear"
-    const temperature = 77
-    const humidity = 80
-    const wind = 70
+    // const country = "Argentina"
+    // const state = "clear"
+    // const temperature = 77
+    // const humidity = 80
+    // const wind = 70
 
     return (
         <AppFrame>
