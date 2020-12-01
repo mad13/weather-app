@@ -3,7 +3,7 @@ import { getCityCode, toCelcius } from './../utils'
 
 const getAllWeather = (response, city, countryCode) => {
     const { data } = response
-    const temperature = toCelcius(data.main.temp)
+    const temperature = Number(toCelcius(data.main.temp))
     const humidity = data.main.humidity
     const wind = data.wind.speed
 

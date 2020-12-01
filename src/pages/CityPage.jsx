@@ -13,7 +13,7 @@ import useCityList from '../hooks/useCityList'
 import { getCityCode } from '../utils/utils'
 import { getCountryNameByCountryCode } from '../utils/servicesCities'
 
-const CityPage = ({ props }) => {
+const CityPage = ({ onSetAllWeather, allWeather }) => {
     const { city, countryCode, chartData, foreCastItemList } = useCityPage()
 
     /* petiodiones excetivas al aserver */
@@ -24,7 +24,7 @@ const CityPage = ({ props }) => {
         ([{ city, countryCode }]), [city, countryCode]
     )
 
-    const { allWeather } = useCityList(cities)
+    useCityList(cities, onSetAllWeather)
 
     const weather = allWeather[getCityCode(city, countryCode)]
 

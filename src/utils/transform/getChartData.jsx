@@ -18,8 +18,8 @@ const getChartData = (data) => {
         // "dayHour", "min", "max"
         return ({
             dayHour: day.format('ddd'),
-            min: toCelcius(Math.min(...temps)),
-            max: toCelcius(Math.max(...temps)),
+            min: Number(toCelcius(Math.min(...temps))),
+            max: Number(toCelcius(Math.max(...temps))),
             hasTemps: (temps.length > 0) ? true : false
         })
     }).filter(item => item.hasTemps)
