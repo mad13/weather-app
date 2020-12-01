@@ -24,7 +24,7 @@ const CityPage = ({ onSetAllWeather, allWeather }) => {
         ([{ city, countryCode }]), [city, countryCode]
     )
 
-    useCityList(cities, onSetAllWeather)
+    useCityList(cities, allWeather, onSetAllWeather)
 
     const weather = allWeather[getCityCode(city, countryCode)]
 

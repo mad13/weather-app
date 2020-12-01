@@ -42,7 +42,7 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
 
 // ul: es el tag html para lista no ordenadas
 const CityList = ({ cities, onClickCity, onSetAllWeather, allWeather }) => {
-    const { error, setError } = useCityList(cities, onSetAllWeather)
+    const { error, setError } = useCityList(cities, allWeather, onSetAllWeather)
 
     return (
         <div>

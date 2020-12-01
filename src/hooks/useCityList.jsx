@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { getWeatherUrl } from './../utils/urls'
 import getAllWeather from './../utils/transform/getAllWeather'
+import { getCityCode } from '../utils/utils'
 
-const useCityList = (cities, onSetAllWeather) => {
+const useCityList = (cities, allWeather, onSetAllWeather) => {
     // const [allWeather, setAllWeather] = useState({})
     const [error, setError] = useState(null)
 
@@ -35,9 +36,11 @@ const useCityList = (cities, onSetAllWeather) => {
         }
 
         cities.forEach(({ city, countryCode }) => {
-            setWeather(city, countryCode)
+            if (!allWeather[getCityCode(city, countryCode)]) {
+                setWeather(city, countryCode)
+            }
         });
-    }, [cities, onSetAllWeather])
+    }, [cities, onSetAllWeather, allWeather])
 
     // const [allWeather, setAllWeather] = useState({})
 
