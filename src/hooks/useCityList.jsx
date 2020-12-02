@@ -17,6 +17,9 @@ const useCityList = (cities, allWeather, onSetAllWeather) => {
             console.log(url)
 
             try {
+                const propName = [getCityCode(city, countryCode)]
+                onSetAllWeather({ [propName]: {} })
+
                 const response = await axios.get(url)
 
                 const allWeatherAux = getAllWeather(response, city, countryCode)

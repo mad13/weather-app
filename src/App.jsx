@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CityPage from './pages/CityPage'
@@ -8,14 +8,43 @@ import NotFoundPage from './pages/NotFoundPage'
 
 const App = props => {
     const [allWeather, setAllWeather] = useState({})
+    const [allChartData, setAllChartData] = useState({})
+    const [allForeCastItemList, setAllForeCastItemList] = useState({})
 
     // la papa esta en saber controlar las renderizaciones por la cantidad de dependencias
     // setAllWeather es administrado por react, por lo que no se actualiza a cada rato
-    const onSetAllWeather = useMemo(() => ((weatherCity) => {
+    const onSetAllWeather = useCallback((weatherCity) => {
         setAllWeather(allWeather => {
             return ({ ...allWeather, ...weatherCity })
         })
-    }), [setAllWeather])
+    }, [setAllWeather])
+
+    const onSetChartData = useCallback((charDataCiy) => {
+        setAllChartData(chartData => ({ ...chartData, ...charDataCiy }))
+    }, [setAllChartData])
+
+    const onSetForeCastItemList = useCallback((foreCastItemListCiy) => {
+        setAllForeCastItemList(foreCastItemList => ({ ...foreCastItemList, ...foreCastItemListCiy }))
+    }, [setAllForeCastItemList])
+
+    const actions = useMemo(
+        () => ({
+            onSetAllWeather,
+            onSetChartData,
+            onSetForeCastItemList
+        }),
+        [onSetAllWeather, onSetChartData, onSetForeCastItemList]
+    )
+
+    const data = useMemo(
+        () => ({
+            allWeather,
+            allChartData,
+            allForeCastItemList
+        }),
+        [allWeather, allChartData, allForeCastItemList]
+    )
+
 
     return (
         <Grid container justify="center" direction="row">
@@ -31,11 +60,11 @@ const App = props => {
                             <WelcomePage />
                         </Route>
                         <Route path="/main">
-                            <MainPage allWeather={allWeather} onSetAllWeather={onSetAllWeather} />
+                            <MainPage data={data} actions={actions} />
                         </Route>
                         {/* <Route path="/city"> */}
                         <Route path="/city/:countryCode/:city">
-                            <CityPage allWeather={allWeather} onSetAllWeather={onSetAllWeather} />
+                            <CityPage data={data} actions={actions} />
                         </Route>
                         <Route>
                             <NotFoundPage />

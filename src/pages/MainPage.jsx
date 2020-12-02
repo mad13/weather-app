@@ -5,7 +5,7 @@ import AppFrame from './../components/AppFrame'
 import CityList from './../components/CityList'
 import { getCities } from '../utils/servicesCities'
 
-const MainPage = ({ onSetAllWeather, allWeather }) => {
+const MainPage = ({ actions, data }) => {
     const history = useHistory();
     const onClickHandler = (city, countryCode) => {
         // history.push nos permites alterar la URL por programación
@@ -19,8 +19,8 @@ const MainPage = ({ onSetAllWeather, allWeather }) => {
         <AppFrame>
             <Paper elevation={3}>
                 <CityList
-                    allWeather={allWeather}
-                    onSetAllWeather={onSetAllWeather}
+                    data={data}
+                    actions={actions}
                     cities={getCities()}
                     onClickCity={onClickHandler} />
             </Paper>

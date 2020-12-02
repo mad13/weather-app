@@ -13,8 +13,10 @@ import useCityList from '../hooks/useCityList'
 import { getCityCode } from '../utils/utils'
 import { getCountryNameByCountryCode } from '../utils/servicesCities'
 
-const CityPage = ({ onSetAllWeather, allWeather }) => {
-    const { city, countryCode, chartData, foreCastItemList } = useCityPage()
+const CityPage = ({ actions, data }) => {
+    const { allWeather, allChartData, allForeCastItemList } = data
+    const { onSetAllWeather, onSetChartData, onSetForeCastItemList } = actions
+    const { city, countryCode } = useCityPage(allChartData, allForeCastItemList, onSetChartData, onSetForeCastItemList)
 
     /* petiodiones excetivas al aserver */
 
@@ -26,7 +28,11 @@ const CityPage = ({ onSetAllWeather, allWeather }) => {
 
     useCityList(cities, allWeather, onSetAllWeather)
 
-    const weather = allWeather[getCityCode(city, countryCode)]
+    const cityCode = getCityCode(city, countryCode)
+
+    const weather = allWeather[cityCode]
+    const chartData = allChartData[cityCode]
+    const foreCastItemList = allForeCastItemList[cityCode]
 
     const country = countryCode && getCountryNameByCountryCode(countryCode)
     const state = weather && weather.state
