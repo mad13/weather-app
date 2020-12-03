@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useReducer } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CityPage from './pages/CityPage'
@@ -7,6 +7,37 @@ import MainPage from './pages/MainPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 const App = props => {
+
+    const initialValue = {
+        allWeather: {},
+        allChartData: {},
+        allForeCastItemList: {}
+    }
+
+    // action { type:"XXX", payload: "XXX"}
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case 'SET_ALL_WEATHER':
+                const weatherCity = action.payload
+                const newAllWeather = { ...state.allWeather, ...weatherCity }
+                return { ...state, allWeather: newAllWeather }
+            case 'SET_CHAR_DATA':
+                const charDataCiy = action.payload
+                const newAllChartData = { ...state.allChartData, ...charDataCiy }
+                return { ...state, allChartData: newAllChartData }
+            case 'SET_FORECAST_ITEM_LIST':
+                const foreCastItemListCity = action.payload
+                const newAllForeCastItemList = { ...state.allForeCastItemList, ...foreCastItemListCity }
+                return { ...state, allForeCastItemList: newAllForeCastItemList }
+            default:
+                return state
+        }
+
+    }
+
+    const [state, dispatch] = useReducer(reducer, initialValue)
+
+    /*
     const [allWeather, setAllWeather] = useState({})
     const [allChartData, setAllChartData] = useState({})
     const [allForeCastItemList, setAllForeCastItemList] = useState({})
@@ -44,7 +75,7 @@ const App = props => {
         }),
         [allWeather, allChartData, allForeCastItemList]
     )
-
+*/
 
     return (
         <Grid container justify="center" direction="row">
@@ -60,11 +91,11 @@ const App = props => {
                             <WelcomePage />
                         </Route>
                         <Route path="/main">
-                            <MainPage data={data} actions={actions} />
+                            <MainPage data={state} actions={dispatch} />
                         </Route>
                         {/* <Route path="/city"> */}
                         <Route path="/city/:countryCode/:city">
-                            <CityPage data={data} actions={actions} />
+                            <CityPage data={state} actions={dispatch} />
                         </Route>
                         <Route>
                             <NotFoundPage />

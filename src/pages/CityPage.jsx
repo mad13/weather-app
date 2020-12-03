@@ -15,8 +15,8 @@ import { getCountryNameByCountryCode } from '../utils/servicesCities'
 
 const CityPage = ({ actions, data }) => {
     const { allWeather, allChartData, allForeCastItemList } = data
-    const { onSetAllWeather, onSetChartData, onSetForeCastItemList } = actions
-    const { city, countryCode } = useCityPage(allChartData, allForeCastItemList, onSetChartData, onSetForeCastItemList)
+    // const { onSetAllWeather, onSetChartData, onSetForeCastItemList } = actions
+    const { city, countryCode } = useCityPage(allChartData, allForeCastItemList, actions)
 
     /* petiodiones excetivas al aserver */
 
@@ -26,7 +26,7 @@ const CityPage = ({ actions, data }) => {
         ([{ city, countryCode }]), [city, countryCode]
     )
 
-    useCityList(cities, allWeather, onSetAllWeather)
+    useCityList(cities, allWeather, actions)
 
     const cityCode = getCityCode(city, countryCode)
 
