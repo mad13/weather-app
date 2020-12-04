@@ -8,16 +8,11 @@ import useCityList from './../../hooks/useCityList'
 import { getCityCode } from '../../utils/utils'
 import CityInfo from '../CityInfo'
 import Weather from './../Weather'
-
-// li es un item de una lista
-// renderCityAndCountry se va a convertir en una funcion que retorna otra función
-const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
-    const { city, country, countryCode } = cityAndCountry
-
+ 
+const CityListItem = React.memo(({ city, country, countryCode,weather,eventOnClickCity }) => {
     return (
         <ListItem
             button
-            key={getCityCode(city, countryCode)}
             onClick={() => eventOnClickCity(city, countryCode)}>
             <Grid container justify="center" alignItems="center" >
                 <Grid item
@@ -35,14 +30,27 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
                     }
                 </Grid>
             </Grid>
-
         </ListItem>
     )
+})
+
+CityListItem.displayName = "CityListItem"
+
+// li es un item de una lista
+// renderCityAndCountry se va a convertir en una funcion que retorna otra función
+const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
+    const { city, country, countryCode } = cityAndCountry
+
+    return <CityListItem 
+    key={getCityCode(city, countryCode)}
+    eventOnClickCity={eventOnClickCity} 
+    weather={weather}
+    {...cityAndCountry}
+    />
 }
 
 // ul: es el tag html para lista no ordenadas
 const CityList = ({ cities, onClickCity, actions, data }) => {
-    // const { onSetAllWeather }= actions
     const { allWeather }= data
     
     const { error, setError } = useCityList(cities, allWeather, actions)
@@ -74,7 +82,7 @@ CityList.propTypes = {
     onClickCity: PropTypes.func.isRequired,
 }
 
-export default CityList
+export default React.memo(CityList)
 
 
     /* 

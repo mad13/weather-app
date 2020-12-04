@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class ErrorBoundary extends Component {
+// PureComponent es similar al React.memo
+class ErrorBoundary extends PureComponent {
 
     // el contructor se ejecuta previo a la renderización
     constructor(props) {

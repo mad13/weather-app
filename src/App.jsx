@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useCallback } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CityPage from './pages/CityPage'
@@ -6,16 +6,18 @@ import WelcomePage from './pages/WelcomePage'
 import MainPage from './pages/MainPage'
 import NotFoundPage from './pages/NotFoundPage'
 
+const initialValue = {
+    allWeather: {},
+    allChartData: {},
+    allForeCastItemList: {}
+}
+
 const App = props => {
 
-    const initialValue = {
-        allWeather: {},
-        allChartData: {},
-        allForeCastItemList: {}
-    }
+
 
     // action { type:"XXX", payload: "XXX"}
-    const reducer = (state, action) => {
+    const reducer = useCallback((state, action) => {
         switch (action.type) {
             case 'SET_ALL_WEATHER':
                 const weatherCity = action.payload
@@ -32,8 +34,7 @@ const App = props => {
             default:
                 return state
         }
-
-    }
+    }, [])
 
     const [state, dispatch] = useReducer(reducer, initialValue)
 

@@ -7,13 +7,13 @@ import { getCities } from '../utils/servicesCities'
 
 const MainPage = ({ actions, data }) => {
     const history = useHistory();
-    const onClickHandler = (city, countryCode) => {
+    const onClickHandler = React.useCallback((city, countryCode) => {
         // history.push nos permites alterar la URL por programación
         // console.log(city, countryCode)
 
         // city/AR/BuenosAires
         history.push(`/city/${countryCode}/${city}`);
-    }
+    }, [history])
 
     return (
         <AppFrame>
