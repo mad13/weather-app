@@ -5,6 +5,10 @@ import CityPage from './pages/CityPage'
 import WelcomePage from './pages/WelcomePage'
 import MainPage from './pages/MainPage'
 import NotFoundPage from './pages/NotFoundPage'
+import {
+    WeatherStateContext,
+    WeatherDispatchContext
+} from './WeatherContext'
 
 const initialValue = {
     allWeather: {},
@@ -13,9 +17,6 @@ const initialValue = {
 }
 
 const App = props => {
-
-
-
     // action { type:"XXX", payload: "XXX"}
     const reducer = useCallback((state, action) => {
         switch (action.type) {
@@ -37,74 +38,32 @@ const App = props => {
     }, [])
 
     const [state, dispatch] = useReducer(reducer, initialValue)
-
-    /*
-    const [allWeather, setAllWeather] = useState({})
-    const [allChartData, setAllChartData] = useState({})
-    const [allForeCastItemList, setAllForeCastItemList] = useState({})
-
-    // la papa esta en saber controlar las renderizaciones por la cantidad de dependencias
-    // setAllWeather es administrado por react, por lo que no se actualiza a cada rato
-    const onSetAllWeather = useCallback((weatherCity) => {
-        setAllWeather(allWeather => {
-            return ({ ...allWeather, ...weatherCity })
-        })
-    }, [setAllWeather])
-
-    const onSetChartData = useCallback((charDataCiy) => {
-        setAllChartData(chartData => ({ ...chartData, ...charDataCiy }))
-    }, [setAllChartData])
-
-    const onSetForeCastItemList = useCallback((foreCastItemListCiy) => {
-        setAllForeCastItemList(foreCastItemList => ({ ...foreCastItemList, ...foreCastItemListCiy }))
-    }, [setAllForeCastItemList])
-
-    const actions = useMemo(
-        () => ({
-            onSetAllWeather,
-            onSetChartData,
-            onSetForeCastItemList
-        }),
-        [onSetAllWeather, onSetChartData, onSetForeCastItemList]
-    )
-
-    const data = useMemo(
-        () => ({
-            allWeather,
-            allChartData,
-            allForeCastItemList
-        }),
-        [allWeather, allChartData, allForeCastItemList]
-    )
-*/
-
     return (
-        <Grid container justify="center" direction="row">
-            <Grid item
-                xs={12}
-                sm={11}
-                md={10}
-                lg={8}
-            >
-                <Router>
-                    <Switch>
-                        <Route exact path="/">
-                            <WelcomePage />
-                        </Route>
-                        <Route path="/main">
-                            <MainPage data={state} actions={dispatch} />
-                        </Route>
-                        {/* <Route path="/city"> */}
-                        <Route path="/city/:countryCode/:city">
-                            <CityPage data={state} actions={dispatch} />
-                        </Route>
-                        <Route>
-                            <NotFoundPage />
-                        </Route>
-                    </Switch>
-                </Router>
-            </Grid>
-        </Grid>
+        <WeatherDispatchContext.Provider value={dispatch}>
+            <WeatherStateContext.Provider value={state}>
+                <Grid container justify="center" direction="row">
+                    <Grid item xs={12} sm={11} md={10} lg={8}>
+                        <Router>
+                            <Switch>
+                                <Route exact path="/">
+                                    <WelcomePage />
+                                </Route>
+                                <Route path="/main">
+                                    <MainPage />
+                                </Route>
+                                {/* <Route path="/city"> */}
+                                <Route path="/city/:countryCode/:city">
+                                    <CityPage />
+                                </Route>
+                                <Route>
+                                    <NotFoundPage />
+                                </Route>
+                            </Switch>
+                        </Router>
+                    </Grid>
+                </Grid>
+            </WeatherStateContext.Provider>
+        </WeatherDispatchContext.Provider>
     )
 }
 

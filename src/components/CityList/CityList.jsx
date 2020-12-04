@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Alert from '@material-ui/lab/Alert'
 import Grid from '@material-ui/core/Grid'
@@ -8,6 +8,7 @@ import useCityList from './../../hooks/useCityList'
 import { getCityCode } from '../../utils/utils'
 import CityInfo from '../CityInfo'
 import Weather from './../Weather'
+import { WeatherDispatchContext, WeatherStateContext } from '../../WeatherContext'
  
 const CityListItem = React.memo(({ city, country, countryCode,weather,eventOnClickCity }) => {
     return (
@@ -50,9 +51,10 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
 }
 
 // ul: es el tag html para lista no ordenadas
-const CityList = ({ cities, onClickCity, actions, data }) => {
+const CityList = ({ cities, onClickCity }) => {
+    const data = useContext(WeatherStateContext)
+    const actions = useContext(WeatherDispatchContext)
     const { allWeather }= data
-    
     const { error, setError } = useCityList(cities, allWeather, actions)
 
     return (
