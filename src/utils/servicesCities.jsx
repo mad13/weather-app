@@ -2,6 +2,7 @@
 const cities =
     [
         { city: "Buenos Aires", country: "Argentina", countryCode: "AR" },
+        { city: "Pinamar", country: "Argentina", countryCode: "AR" },
         // { city: "Bariloche", country: "Argentina", countryCode: "AR" },
         // { city: "Lima", country: "Perú", countryCode: "PE" },
         // { city: "Madrid", country: "España" , countryCode: "ES"},
