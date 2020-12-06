@@ -19,7 +19,6 @@ const MainPage = () => {
         <AppFrame>
             <Paper elevation={3}>
                 <CityList
-
                     cities={getCities()}
                     onClickCity={onClickHandler} />
             </Paper>

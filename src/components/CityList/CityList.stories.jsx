@@ -1,6 +1,7 @@
 import React from 'react'
 import CityList from './CityList'
 import { action } from '@storybook/addon-actions'
+import { WeatherContext } from '../../WeatherContext'
 
 export default {
     title: "CityList",
@@ -19,6 +20,11 @@ const cities =
     ]
 
 export const CityListExample = () => {
-    return <CityList cities={cities} onClickCity={action("Click en city")} />
+    //TODO fixear el uso de state para la stories
+    return (
+        <WeatherContext>
+            <CityList cities={cities} onClickCity={action("Click en city")} />
+        </WeatherContext>
+    )
 }
 
